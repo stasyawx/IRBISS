@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">IRBIS</string>
+    <string-array name="active_options">
+        <item>Активно</item>
+        <item>Не активно</item>
+    </string-array>
+</resources>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PrivacyPolicy"
+    android:background="@color/back2">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp">
+
+            <ImageView
+                android:id="@+id/exit"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/exit"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="50dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/exit"
+                android:layout_marginTop="35dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Политика конфиденциальности"
+                    android:textSize="22sp"
+                    android:textColor="@color/blackk"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="15dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. Общие положения"
+                    android:textSize="18sp"
+                    android:textColor="@color/blackk"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Мы соблюдаем Федеральный закон №152-ФЗ 'О персональных данных' и гарантируем защиту вашей информации."
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2. Какие данные мы собираем"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blackk"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="- Имя, контактные данные\n- Данные банковской карты (только для платежей)\n- Историю транзакций"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="3. Как используем данные"
+                    android:textSize="18sp"
+                    android:textColor="@color/blackk"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="- Для обработки платежей\n- Начисления бонусных баллов\n- Улучшения сервиса\n- Рассылки спецпредложений (только с согласия)"
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="4. Ваши права"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blackk"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Вы можете запросить доступ к вашим данным, их исправление или удаление, отозвать согласие на обработку."
+                    android:textSize="15sp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Дата последнего обновления: 18.06.2025"
+                    android:textSize="14sp"
+                    android:textColor="@color/dark_gray"
+                    android:textStyle="italic"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/bottomToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/tool_bar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:padding="25dp"
+        android:layout_marginBottom="45dp"
+        android:elevation="4dp"
+        android:translationZ="2dp">
+
+        <ImageView
+            android:id="@+id/homeImageView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/home"
+            android:layout_marginLeft="35dp"
+            android:layout_gravity="center"/>
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="0dp"/>
+        <ImageView
+            android:id="@+id/historyImageView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/history"
+            android:layout_gravity="center"/>
+        <Space
+            android:layout_width="60dp"
+            android:layout_height="0dp"/>
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/profil"
+            android:layout_marginRight="35dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+</RelativeLayout>

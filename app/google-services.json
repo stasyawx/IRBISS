@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "928020488502",
+    "firebase_url": "https://irbis-af850-default-rtdb.firebaseio.com",
+    "project_id": "irbis-af850",
+    "storage_bucket": "irbis-af850.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928020488502:android:b06dab1214a61bade95397",
+        "android_client_info": {
+          "package_name": "com.example.irbis"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPacQ-06drEZgNaVheNJxfwnLXQuFuWsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
