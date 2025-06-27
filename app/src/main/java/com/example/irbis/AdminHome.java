@@ -26,6 +26,9 @@ public class AdminHome extends AppCompatActivity {
             return insets;
         });
 
+        // Инициализация базы данных (вызывать только один раз!)
+        new DatabaseInitializer().initializeFuels(new FuelService());
+
         UserData userData = UserData.getInstance();
         TextView userNameTextView = findViewById(R.id.userNameTextView);
 
