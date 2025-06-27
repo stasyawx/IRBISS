@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,18 +126,15 @@ public class EditFuel extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Fuel selectedFuel = (Fuel) parent.getItemAtPosition(position);
                 if (selectedFuel != null) {
-                    // Обновляем поля формы
                     priceInput.setText(String.valueOf(selectedFuel.getPrice()));
                     descriptionInput.setText(selectedFuel.getDescription());
 
-                    // Устанавливаем правильное значение в Spinner активности
                     activeSpinner.setSelection(selectedFuel.isActive() ? 0 : 1);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Очищаем поля, если ничего не выбрано
                 priceInput.setText("");
                 descriptionInput.setText("");
                 activeSpinner.setSelection(0);
@@ -160,7 +158,10 @@ public class EditFuel extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(EditFuel.this, "Ошибка загрузки данных", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(EditFuel.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Ошибка")
+                        .setContentText("Ошибка загрузки данных")
+                        .show();
             }
         });
     }
@@ -171,10 +172,12 @@ public class EditFuel extends AppCompatActivity {
             Fuel selectedFuel = (Fuel) fuelTypeSpinner.getSelectedItem();
             if (selectedFuel != null) {
                 try {
-                    // Получаем и проверяем цену
                     String priceStr = priceInput.getText().toString().trim();
                     if (priceStr.isEmpty()) {
-                        Toast.makeText(this, "Введите цену", Toast.LENGTH_SHORT).show();
+                        new SweetAlertDialog(EditFuel.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Внимание")
+                                .setContentText("Введите цену")
+                                .show();
                         return;
                     }
 
@@ -182,27 +185,36 @@ public class EditFuel extends AppCompatActivity {
                     String newDescription = descriptionInput.getText().toString().trim();
                     boolean isActive = activeSpinner.getSelectedItemPosition() == 0;
 
-                    // Обновляем объект
                     selectedFuel.setPrice(newPrice);
                     selectedFuel.setDescription(newDescription);
                     selectedFuel.setActive(isActive);
 
-                    // Сохраняем в Firebase
                     fuelService.updateFuel(selectedFuel);
 
-                    Toast.makeText(this, "Данные обновлены", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(EditFuel.this, AdminHome.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    overridePendingTransition(0, 0);
-                    finish();
+                    new SweetAlertDialog(EditFuel.this, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Успешно")
+                            .setContentText("Данные обновлены")
+                            .setConfirmClickListener(sDialog -> {
+                                sDialog.dismissWithAnimation();
+                                Intent intent = new Intent(EditFuel.this, AdminHome.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                startActivity(intent);
+                                overridePendingTransition(0, 0);
+                                finish();
+                            })
+                            .show();
 
                 } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Введите корректную цену (например: 45.90)", Toast.LENGTH_SHORT).show();
+                    new SweetAlertDialog(EditFuel.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Ошибка")
+                            .setContentText("Введите корректную цену (например: 45.90)")
+                            .show();
                 }
             } else {
-                Toast.makeText(this, "Выберите тип топлива", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(EditFuel.this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Внимание")
+                        .setContentText("Выберите тип топлива")
+                        .show();
             }
         });
     }

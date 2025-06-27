@@ -8,12 +8,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Home extends AppCompatActivity {
+
+    private TextView ai95PriceTextView, ai92PriceTextView, ai92xtPriceTextView, dieselPriceTextView;
+    private FuelService fuelService;
+    private List<Fuel> fuels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +38,13 @@ public class Home extends AppCompatActivity {
             return insets;
         });
 
-        UserData userData = UserData.getInstance();
+        fuelService = new FuelService();
+        ai95PriceTextView = findViewById(R.id.ai95PriceTextView);
+        ai92PriceTextView = findViewById(R.id.ai92PriceTextView);
+        ai92xtPriceTextView = findViewById(R.id.ai92xtPriceTextView);
+        dieselPriceTextView = findViewById(R.id.dieselPriceTextView);
 
+        UserData userData = UserData.getInstance();
         TextView userNameTextView = findViewById(R.id.userNameTextView);
         TextView bonusPointsTextView = findViewById(R.id.bonusPointsTextView);
 
@@ -36,7 +53,46 @@ public class Home extends AppCompatActivity {
             bonusPointsTextView.setText(String.valueOf(userData.getBonusPoints()));
         }
 
+        loadFuelData();
         setupNavigation();
+    }
+
+    private void loadFuelData() {
+        fuelService.getFuelsReference().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fuels.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Fuel fuel = snapshot.getValue(Fuel.class);
+                    if (fuel != null) {
+                        fuels.add(fuel);
+                        updateFuelUI(fuel);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Обработка ошибки
+            }
+        });
+    }
+
+    private void updateFuelUI(Fuel fuel) {
+        switch (fuel.getName()) {
+            case "АИ-95 XTRim":
+                ai95PriceTextView.setText(String.format("%.2f₽", fuel.getPrice()));
+                break;
+            case "АИ-92":
+                ai92PriceTextView.setText(String.format("%.2f₽", fuel.getPrice()));
+                break;
+            case "АИ-92 XTRim":
+                ai92xtPriceTextView.setText(String.format("%.2f₽", fuel.getPrice()));
+                break;
+            case "Дизель":
+                dieselPriceTextView.setText(String.format("%.2f₽", fuel.getPrice()));
+                break;
+        }
     }
 
     private void setupNavigation() {

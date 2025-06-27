@@ -99,6 +99,7 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
+                            android:id="@+id/ai95PriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="57.99₽"
@@ -127,6 +128,7 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
+                            android:id="@+id/ai92PriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="53.49₽"
@@ -155,6 +157,7 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
+                            android:id="@+id/ai92xtPriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="54.49₽"
@@ -183,6 +186,7 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
+                            android:id="@+id/dieselPriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="65.99₽"

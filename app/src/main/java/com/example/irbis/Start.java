@@ -27,6 +27,9 @@ public class Start extends AppCompatActivity {
             return insets;
         });
 
+        // Инициализация базы данных (вызывать только один раз!)
+        //DatabaseInitializer.initializeAllData(new FuelService(), new GasStationService(), new PumpService());
+
         setupNavigation();
     }
 

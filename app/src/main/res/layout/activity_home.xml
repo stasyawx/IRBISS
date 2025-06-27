@@ -113,10 +113,9 @@
                         android:background="@drawable/rounded_corners_red">
 
                         <TextView
-                            android:id="@+id/fuel1Name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="АИ-95 XTRim"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
@@ -125,10 +124,10 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
-                            android:id="@+id/fuel1Price"
+                            android:id="@+id/ai95PriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="57.99₽"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
@@ -143,10 +142,9 @@
                         android:background="@drawable/rounded_corners_orange">
 
                         <TextView
-                            android:id="@+id/fuel2Name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="АИ-92"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
@@ -155,10 +153,10 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
-                            android:id="@+id/fuel2Price"
+                            android:id="@+id/ai92PriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="53.49₽"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
@@ -173,10 +171,9 @@
                         android:background="@drawable/rounded_corners_red">
 
                         <TextView
-                            android:id="@+id/fuel3Name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="АИ-92 XTRim"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
@@ -185,10 +182,10 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
-                            android:id="@+id/fuel3Price"
+                            android:id="@+id/ai92xtPriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="54.49₽"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
@@ -203,10 +200,9 @@
                         android:background="@drawable/rounded_corners_orange">
 
                         <TextView
-                            android:id="@+id/fuel4Name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="Дизель"
                             android:textSize="15sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
@@ -215,10 +211,10 @@
                             android:layout_marginLeft="20dp"/>
 
                         <TextView
-                            android:id="@+id/fuel4Price"
+                            android:id="@+id/dieselPriceTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=""
+                            android:text="65.99₽"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
