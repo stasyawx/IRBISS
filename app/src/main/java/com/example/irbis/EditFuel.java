@@ -3,15 +3,19 @@ package com.example.irbis;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -65,14 +69,79 @@ public class EditFuel extends AppCompatActivity {
     }
 
     private void setupAdapters() {
-        fuelAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, fuels);
+        fuelAdapter = new ArrayAdapter<Fuel>(this, android.R.layout.simple_spinner_item, fuels) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextColor(ContextCompat.getColor(EditFuel.this, R.color.blackk));
+                textView.setTextSize(18);
+                textView.setPadding(30, 0, 0, 0);
+                return textView;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getDropDownView(position, convertView, parent);
+                textView.setBackgroundColor(ContextCompat.getColor(EditFuel.this, R.color.light_gray));
+                textView.setTextColor(ContextCompat.getColor(EditFuel.this, R.color.blackk));
+                textView.setTextSize(18);
+                textView.setPadding(30, 20, 20, 20);
+                return textView;
+            }
+        };
+
         fuelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fuelTypeSpinner.setAdapter(fuelAdapter);
 
-        activeAdapter = ArrayAdapter.createFromResource(this,
-                R.array.active_options, android.R.layout.simple_spinner_item);
+        activeAdapter = new ArrayAdapter<CharSequence>(
+                this,
+                android.R.layout.simple_spinner_item,
+                getResources().getStringArray(R.array.active_options)) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                textView.setTextColor(ContextCompat.getColor(EditFuel.this, R.color.blackk));
+                textView.setTextSize(18);
+                textView.setPadding(30, 0, 0, 0);
+                return textView;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getDropDownView(position, convertView, parent);
+                textView.setBackgroundColor(ContextCompat.getColor(EditFuel.this, R.color.light_gray));
+                textView.setTextColor(ContextCompat.getColor(EditFuel.this, R.color.blackk));
+                textView.setTextSize(18);
+                textView.setPadding(30, 20, 20, 20);
+                return textView;
+            }
+        };
         activeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activeSpinner.setAdapter(activeAdapter);
+
+        fuelTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Fuel selectedFuel = (Fuel) parent.getItemAtPosition(position);
+                if (selectedFuel != null) {
+                    // Обновляем поля формы
+                    priceInput.setText(String.valueOf(selectedFuel.getPrice()));
+                    descriptionInput.setText(selectedFuel.getDescription());
+
+                    // Устанавливаем правильное значение в Spinner активности
+                    activeSpinner.setSelection(selectedFuel.isActive() ? 0 : 1);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Очищаем поля, если ничего не выбрано
+                priceInput.setText("");
+                descriptionInput.setText("");
+                activeSpinner.setSelection(0);
+            }
+        });
     }
 
     private void loadFuels() {
@@ -102,18 +171,35 @@ public class EditFuel extends AppCompatActivity {
             Fuel selectedFuel = (Fuel) fuelTypeSpinner.getSelectedItem();
             if (selectedFuel != null) {
                 try {
-                    double newPrice = Double.parseDouble(priceInput.getText().toString());
-                    String newDescription = descriptionInput.getText().toString();
+                    // Получаем и проверяем цену
+                    String priceStr = priceInput.getText().toString().trim();
+                    if (priceStr.isEmpty()) {
+                        Toast.makeText(this, "Введите цену", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    double newPrice = Double.parseDouble(priceStr);
+                    String newDescription = descriptionInput.getText().toString().trim();
                     boolean isActive = activeSpinner.getSelectedItemPosition() == 0;
 
+                    // Обновляем объект
                     selectedFuel.setPrice(newPrice);
                     selectedFuel.setDescription(newDescription);
                     selectedFuel.setActive(isActive);
 
+                    // Сохраняем в Firebase
                     fuelService.updateFuel(selectedFuel);
+
                     Toast.makeText(this, "Данные обновлены", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(EditFuel.this, AdminHome.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                    finish();
+
                 } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Введите корректную цену", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Введите корректную цену (например: 45.90)", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(this, "Выберите тип топлива", Toast.LENGTH_SHORT).show();

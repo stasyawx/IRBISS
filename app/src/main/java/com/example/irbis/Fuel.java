@@ -1,5 +1,7 @@
 package com.example.irbis;
 
+import androidx.annotation.NonNull;
+
 public class Fuel {
     private String id;
     private String name;
@@ -27,4 +29,10 @@ public class Fuel {
     public void setDescription(String description) { this.description = description; }
     public boolean isActive() { return isActive; }
     public void setActive(boolean active) { isActive = active; }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
+    }
 }
